@@ -1,0 +1,27 @@
+### Create Song 
+POST http://localhost:3000/songs
+Content-Type: application/json
+
+{
+    "title": "New song",
+    "artists": ["Martin Garrix"],
+    "releasedDate" : "2023-05-11",
+    "duration" :"02:33",
+    "lyrics": "1adas adsdasd asdasdasd qeqew"
+}
+
+### home
+GET http://localhost:3000
+
+### Find all songs
+GET http://localhost:3000/songs
+
+
+### Find one song
+GET http://localhost:3000/songs/6481786f31a6103e10489ced
+
+### Update Song
+PUT http://localhost:3000/songs/6481793569b739d7236e73b3
+
+### Delete Song
+DELETE http://localhost:3000/songs/6481793569b739d7236e73b3
