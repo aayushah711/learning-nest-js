@@ -5,6 +5,8 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -32,8 +34,14 @@ export class SongsController {
     }
   }
   @Get(':id')
-  findOne() {
-    return 'fetch song by id';
+  findOne(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ) {
+    return `fetch song by id ${typeof id}`;
   }
   @Put(':id')
   update() {
