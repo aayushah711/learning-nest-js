@@ -13,7 +13,7 @@ import { SongsController } from './songs/songs.controller';
 import { DevConfigService } from './common/providers/DevConfigService';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { Song } from './songs/songs.entity';
+import { Song } from './songs/song.entity';
 
 const devConfig = {
   port: 3000,

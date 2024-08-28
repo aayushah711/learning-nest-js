@@ -1,23 +1,26 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
-  HttpException,
+  // HttpException,
   HttpStatus,
   Inject,
   Param,
   ParseIntPipe,
   Post,
   Put,
+  Query,
   //   Scope,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongDTO } from './dto/create-song-dto';
 import { Connection } from 'src/common/constants/connection';
-import { Song } from './songs.entity';
+import { Song } from './song.entity';
 import { UpdateSongDTO } from './dto/update-song-dto';
 import { UpdateResult } from 'typeorm';
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Controller('songs')
 // @Controller({ path: 'songs', scope: Scope.REQUEST })
@@ -35,17 +38,30 @@ export class SongsController {
   }
 
   @Get()
-  findAll(): Promise<Song[]> {
-    try {
-      return this.songsService.findAll();
-    } catch (error) {
-      throw new HttpException(
-        'server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-        { cause: error },
-      );
-    }
+  findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe)
+    page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe)
+    limit: number,
+  ): Promise<Pagination<Song>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.songsService.paginate({
+      page,
+      limit,
+    });
   }
+
+  // findAll(): Promise<Song[]> {
+  //   try {
+  //     return this.songsService.findAll();
+  //   } catch (error) {
+  //     throw new HttpException(
+  //       'server error',
+  //       HttpStatus.INTERNAL_SERVER_ERROR,
+  //       { cause: error },
+  //     );
+  //   }
+  // }
   @Get(':id')
   findOne(
     @Param(

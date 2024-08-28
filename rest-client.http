@@ -14,7 +14,7 @@ Content-Type: application/json
 GET http://localhost:3000
 
 ### Find all songs
-GET http://localhost:3000/songs
+GET http://localhost:3000/songs?page=1&limit=2
 
 
 ### Find one song
