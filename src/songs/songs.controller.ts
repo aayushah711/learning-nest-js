@@ -15,6 +15,9 @@ import {
 import { SongsService } from './songs.service';
 import { CreateSongDTO } from './dto/create-song-dto';
 import { Connection } from 'src/common/constants/connection';
+import { Song } from './songs.entity';
+import { UpdateSongDTO } from './dto/update-song-dto';
+import { UpdateResult } from 'typeorm';
 
 @Controller('songs')
 // @Controller({ path: 'songs', scope: Scope.REQUEST })
@@ -27,12 +30,12 @@ export class SongsController {
     console.log(`Connected to ${this.connection.CONNECTION_STRING}`);
   }
   @Post()
-  create(@Body() createSongDTO: CreateSongDTO) {
+  create(@Body() createSongDTO: CreateSongDTO): Promise<Song> {
     return this.songsService.create(createSongDTO);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<Song[]> {
     try {
       return this.songsService.findAll();
     } catch (error) {
@@ -50,15 +53,19 @@ export class SongsController {
       new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
     )
     id: number,
-  ) {
-    return `fetch song by id ${typeof id}`;
+  ): Promise<Song> {
+    return this.songsService.findOne(id);
   }
   @Put(':id')
-  update() {
-    return 'update song by id';
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body()
+    updateSongDTO: UpdateSongDTO,
+  ): Promise<UpdateResult> {
+    return this.songsService.update(id, updateSongDTO);
   }
   @Delete(':id')
-  delete() {
-    return 'delete song by id';
+  delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.songsService.remove(id);
   }
 }

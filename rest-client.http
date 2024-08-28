@@ -3,7 +3,7 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-    "title": "New song",
+    "title": "New song2",
     "artists": ["Martin Garrix"],
     "releasedDate" : "2023-05-11",
     "duration" :"02:33",
@@ -18,10 +18,19 @@ GET http://localhost:3000/songs
 
 
 ### Find one song
-GET http://localhost:3000/songs/6481786f31a6103e10489ced
+GET http://localhost:3000/songs/2
 
 ### Update Song
-PUT http://localhost:3000/songs/6481793569b739d7236e73b3
+PUT http://localhost:3000/songs/2
+ Content-Type: application/json
+
+{
+     "title": "You for Me 3",
+     "artists": ["Siagla", "Yan", "Ny"],
+     "releasedDate": "2022-09-30",
+     "duration": "02:45",
+     "lyrics": "Sby, you're my adrenaline. Brought out this other side of me You don't even know Controlling my whole anatomy, oh Fingers are holding you right at the edge You're slipping out of my hands Keeping my secrets all up in my head I'm"
+}
 
 ### Delete Song
 DELETE http://localhost:3000/songs/6481793569b739d7236e73b3
