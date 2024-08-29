@@ -3,9 +3,9 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-    "title": "New song2",
-    "artists": ["Martin Garrix"],
-    "releasedDate" : "2023-05-11",
+    "title": "New song3",
+    "artists": [2],
+    "releasedDate" : "2023-03-11",
     "duration" :"02:33",
     "lyrics": "1adas adsdasd asdasdasd qeqew"
 }
@@ -14,7 +14,7 @@ Content-Type: application/json
 GET http://localhost:3000
 
 ### Find all songs
-GET http://localhost:3000/songs?page=1&limit=2
+GET http://localhost:3000/songs?page=1&limit=3
 
 
 ### Find one song

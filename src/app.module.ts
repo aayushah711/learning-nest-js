@@ -14,6 +14,8 @@ import { DevConfigService } from './common/providers/DevConfigService';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { Song } from './songs/song.entity';
+import { Artist } from './artists/artist.entity';
+import { User } from './users/user.entity';
 
 const devConfig = {
   port: 3000,
@@ -32,7 +34,7 @@ const proConfig = {
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Song],
+      entities: [Song, Artist, User],
       synchronize: true,
     }),
   ],
