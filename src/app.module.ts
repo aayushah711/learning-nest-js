@@ -11,6 +11,11 @@ import { SongsModule } from './songs/songs.module';
 import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
 import { SongsController } from './songs/songs.controller';
 import { DevConfigService } from './common/providers/DevConfigService';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
+import { Song } from './songs/song.entity';
+import { Artist } from './artists/artist.entity';
+import { User } from './users/user.entity';
 
 const devConfig = {
   port: 3000,
@@ -20,7 +25,19 @@ const proConfig = {
 };
 
 @Module({
-  imports: [SongsModule],
+  imports: [
+    SongsModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT || 5432,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      entities: [Song, Artist, User],
+      synchronize: true,
+    }),
+  ],
   controllers: [AppController],
   providers: [
     AppService,
@@ -34,6 +51,10 @@ const proConfig = {
   ],
 })
 export class AppModule implements NestModule {
+  constructor(private dataSource: DataSource) {
+    console.log(this.dataSource.driver.database);
+  }
+
   configure(consumer: MiddlewareConsumer) {
     // consumer.apply(LoggerMiddleware).forRoutes('songs');
     // consumer

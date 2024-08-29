@@ -1,0 +1,5 @@
+main.ts is the starting point. It uses NestFactory.create method which takes AppModule as parameter.
+A module uses @Module decorator which has imports, controllers and providers. imports have names of other modules. controllers have the controller file reference. providers have the references to services/repositories, non service functions, classes, objects, configs 
+All controllers have @Controller() decorator. Its constructor will have private service parameter. Inside the class body there will be different function routes eg. @Post()create(){}, @Get()findAll(), @Get(':id')findOne(). It will handle the validation & sanitization of params, query & body. It will return some function from this.service
+All services & non service functions, classes, objects, configs have @Injectable() decorator. Since services talk to db, the constructor will have repository reference
+Constructors of service & controllers can have @Inject() decorator for non service functions, classes, objects, configs 
