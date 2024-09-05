@@ -1,9 +1,11 @@
 import { Artist } from 'src/artists/artist.entity';
+import { Playlist } from 'src/playlists/playlist.entity';
 import {
   Column,
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -27,4 +29,7 @@ export class Song {
 
   @Column({ type: 'text' })
   lyrics: string;
+
+  @ManyToOne(() => Playlist, (playlist) => playlist.songs) //This Song entity will have the playlistId as a foreign key in the songs table
+  playlist: Playlist;
 }

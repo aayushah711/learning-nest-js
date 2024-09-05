@@ -34,3 +34,13 @@ PUT http://localhost:3000/songs/2
 
 ### Delete Song
 DELETE http://localhost:3000/songs/6481793569b739d7236e73b3
+
+### Create playlist
+POST http://localhost:3000/playlists
+ Content-Type: application/json
+
+{
+    "name": "Feel Good Now",
+    "songs": [6],
+    "user": 3
+}

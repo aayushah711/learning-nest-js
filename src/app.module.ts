@@ -16,6 +16,8 @@ import { DataSource } from 'typeorm';
 import { Song } from './songs/song.entity';
 import { Artist } from './artists/artist.entity';
 import { User } from './users/user.entity';
+import { PlaylistsModule } from './playlists/playlists.module';
+import { Playlist } from './playlists/playlist.entity';
 
 const devConfig = {
   port: 3000,
@@ -26,7 +28,6 @@ const proConfig = {
 
 @Module({
   imports: [
-    SongsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -34,9 +35,11 @@ const proConfig = {
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Song, Artist, User],
+      entities: [Song, Artist, User, Playlist],
       synchronize: true,
     }),
+    SongsModule,
+    PlaylistsModule,
   ],
   controllers: [AppController],
   providers: [
